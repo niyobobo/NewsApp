@@ -9,14 +9,18 @@ module.exports = {
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       postId: {
-        allowNull: false,
-        foreignKey:true,
         type: Sequelize.UUID,
+        allowNull: false,
       },
       userId: {
-        allowNull: false,
-        foreignKey:true,
         type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       removed: {
         allowNull: false,

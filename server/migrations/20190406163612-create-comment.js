@@ -15,6 +15,12 @@ module.exports = {
       userId: {
         type: Sequelize.UUID,
         allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       removed: {
         type: Sequelize.BOOLEAN,

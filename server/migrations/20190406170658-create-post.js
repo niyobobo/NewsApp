@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.lateral('uuid_generate_v4()'),
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       postHeader: {
         allowNull: false,
@@ -26,7 +26,13 @@ module.exports = {
       },
       author: {
         allowNull: false,
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       approvedBy: {
         allowNull: false,

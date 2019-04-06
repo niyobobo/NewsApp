@@ -67,6 +67,10 @@ module.exports = {
             type: Sequelize.DATE,
             defaultValue: Sequelize.fn('NOW'),
           }
+        }, {
+          tableName: 'Users',
+          timestamps: false,
+          schema: 'public',
         });
       })
   },
