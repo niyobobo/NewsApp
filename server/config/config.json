@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "niyobobo",
+    "database": "brende",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "niyobobo",
+    "database": "database_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "niyobobo",
+    "database": "database_production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

@@ -8,4 +8,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(mobileRoute);
 
+app.get('*', (req, res) => res.status(200).send({
+  status: res.statusCode,
+  message: 'Welcome to the default API route',
+}));
+
 app.listen(PORT);
