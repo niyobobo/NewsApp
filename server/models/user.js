@@ -1,22 +1,61 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    role: DataTypes.INTEGER,
-    phone_number: DataTypes.STRING,
-    profile_url: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: 'firsName is required',
+      },
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: 'lastName is required',
+      },
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: 'email is required',
+      },
+    },
+    role: {
+      type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Roles',
+        key: 'roleId',
+        as: 'role',
+      },
+    },
+    phoneNumber: DataTypes.STRING,
+    profileUrl: DataTypes.STRING,
     status: DataTypes.STRING,
     handle: DataTypes.STRING,
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: 'password is required',
+      },
+      validate: {
+        isNotShort: (value) => {
+          if (value.length < 8) {
+            throw new Error('Password should be at least 8 characters');
+          }
+        },
+      },
+    },
     salt: DataTypes.STRING,
     hash: DataTypes.STRING,
-    created_at: DataTypes.NOW,
-    updated_at: DataTypes.DATE,
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+  User.associate = (models) => {
+    User.belongsTo(models.Role, {
+      foreignKey: 'role',
+      onDelete: 'CASCADE',
+    });
   };
   return User;
 };

@@ -1,60 +1,73 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
-      uuid: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        primaryKey: true,
-      },
-      first_name: {
-        type: Sequelize.STRING
-      },
-      last_name: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING
-      },
-      role: {
-        type: Sequelize.INTEGER
-      },
-      phone_number: {
-        type: Sequelize.STRING
-      },
-      profile_url: {
-        type: Sequelize.STRING
-      },
-      status: {
-        type: Sequelize.STRING
-      },
-      handle: {
-        type: Sequelize.STRING
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      salt: {
-        type: Sequelize.STRING
-      },
-      hash: {
-        type: Sequelize.STRING
-      },
-      created_at: {
-        type: Sequelize.NOW
-      },
-      updated_at: {
-        type: Sequelize.DATE
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    return queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
+      .then(() => {
+        return queryInterface.createTable('Users', {
+          userId: {
+            type: Sequelize.UUID,
+            defaultValue: Sequelize.literal('uuid_generate_v4()'),
+            primaryKey: true,
+            unique: true,
+          },
+          firstName: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          lastName: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true,
+          },
+          role: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+          },
+          phoneNumber: {
+            type: Sequelize.STRING,
+            unique: true,
+          },
+          profileUrl: {
+            type: Sequelize.STRING
+          },
+          approved: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: false,
+          },
+          handle: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          password: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          salt: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          hash: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+          },
+          updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+          }
+        });
+      })
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');
