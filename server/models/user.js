@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       references: {
         model: 'Roles',
-        key: 'roleId',
+        key: 'id',
         as: 'role',
       },
     },

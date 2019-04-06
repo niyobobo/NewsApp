@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       references: {
         model: 'Posts',
-        key: 'postId',
+        key: 'id',
         as: 'postId',
       },
       allowNull: {
@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       references: {
         model: 'Users',
-        key: 'userId',
+        key: 'id',
         as: 'userId',
       },
       allowNull: {

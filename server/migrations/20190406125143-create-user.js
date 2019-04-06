@@ -4,7 +4,7 @@ module.exports = {
     return queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
       .then(() => {
         return queryInterface.createTable('Users', {
-          userId: {
+          id: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.literal('uuid_generate_v4()'),
             primaryKey: true,
@@ -67,10 +67,6 @@ module.exports = {
             type: Sequelize.DATE,
             defaultValue: Sequelize.fn('NOW'),
           }
-        }, {
-          tableName: 'Users',
-          timestamps: false,
-          schema: 'public',
         });
       })
   },

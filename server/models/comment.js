@@ -4,7 +4,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       references: {
         model: 'Posts',
-        key: 'postId',
+        key: 'id',
         as: 'postId',
       },
       allowNull: {
@@ -16,7 +16,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       references: {
         model: 'Users',
-        key: 'userId',
+        key: 'id',
         as: 'userId',
       },
       allowNull: {
