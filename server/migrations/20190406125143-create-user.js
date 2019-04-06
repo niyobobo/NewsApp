@@ -26,6 +26,7 @@ module.exports = {
           role: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            foreignKey: true,
             defaultValue: 0,
           },
           phoneNumber: {
@@ -59,12 +60,12 @@ module.exports = {
           createdAt: {
             allowNull: false,
             type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW,
+            defaultValue: Sequelize.fn('NOW'),
           },
           updatedAt: {
             allowNull: false,
             type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW,
+            defaultValue: Sequelize.fn('NOW'),
           }
         });
       })

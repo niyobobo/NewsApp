@@ -1,22 +1,27 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Roles', {
-      roleId: {
+    return queryInterface.createTable('Likes', {
+      id: {
+        allowNull: false,
+        primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
-        primaryKey: true,
-        unique: true,
       },
-      value: {
-        type: Sequelize.INTEGER,
+      postId: {
         allowNull: false,
-        unique: true,
+        foreignKey:true,
+        type: Sequelize.UUID,
       },
-      name: {
-        type: Sequelize.STRING,
+      userId: {
         allowNull: false,
-        unique: true,
+        foreignKey:true,
+        type: Sequelize.UUID,
+      },
+      removed: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +36,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Roles');
+    return queryInterface.dropTable('Likes');
   }
 };
