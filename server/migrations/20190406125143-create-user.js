@@ -31,6 +31,7 @@ module.exports = {
           },
           phoneNumber: {
             type: Sequelize.STRING,
+            allowNull: false,
             unique: true,
           },
           profileUrl: {

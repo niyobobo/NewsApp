@@ -1,19 +1,16 @@
-import { readdirSync } from 'fs';
-import { basename as _basename, join } from 'path';
+import fs from 'fs';
+import path from 'path';
 import Sequelize from 'sequelize';
-import User from './user';
-import Role from './role';
-import Like from './like';
-import Comment from './comment';
-import Post from './post';
+import ENV from 'dotenv';
+import configs from '../config/config';
 
-const basename = _basename(__filename);
+ENV.config();
+
+const basename = path.basename(__filename);
+
 const env = process.env.NODE_ENV || 'development';
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(`${__dirname}/../config/config.json`)[env];
-const db = {
-  User, Role, Like, Comment, Post,
-};
+const config = configs[env];
+const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
@@ -22,10 +19,10 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-readdirSync(__dirname)
+fs.readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    const model = sequelize.import(join(__dirname, file));
+    const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 

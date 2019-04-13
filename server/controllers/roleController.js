@@ -3,6 +3,12 @@ import models from '../models';
 const { Role } = models;
 
 const roles = {
+  /**
+   * Creating a role that can be assigned to the user.
+   *
+   * @param {value, name} req request data object
+   * @param {role } res response role object
+   */
   async createRole(req, res) {
     const { value, name } = req.body;
     try {
@@ -18,6 +24,46 @@ const roles = {
       });
     }
   },
-}
+  /**
+   * Retrieving all roles information.
+   *
+   * @param {*} req
+   * @param {*} res Array response of all roles.
+   */
+  async viewAllRole(req, res) {
+    try {
+      const allRole = await Role.findAll();
+      return res.status(200).send({
+        status: res.statusCode,
+        data: allRole,
+      });
+    } catch (error) {
+      return res.status(500).send({
+        status: res.statusCode,
+        error,
+      });
+    }
+  },
+  /**
+   * Deleting Role.
+   *
+   * @param { id } req  RoleId from request params of needed Role.
+   * @param {*} res     Confirmation message that Role deleted.
+   */
+
+  async deleteRole(req, res) {
+    const { id } = req.params;
+    try {
+      const data = await Role.delete({ id });
+      return data;
+    } catch (error) {
+      return res.status(500).send({
+        status: res.statusCode,
+        error,
+      });
+    }
+  },
+
+};
 
 export default roles;
