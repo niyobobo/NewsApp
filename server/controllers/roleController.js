@@ -20,10 +20,11 @@ const roles = {
     } catch (error) {
       return res.status(400).send({
         status: res.statusCode,
-        error: error.errors[0].message,
+        error: error.name,
       });
     }
   },
+
   /**
    * Retrieving all roles information.
    *
@@ -44,18 +45,26 @@ const roles = {
       });
     }
   },
+
   /**
    * Deleting Role.
    *
    * @param { id } req  RoleId from request params of needed Role.
    * @param {*} res     Confirmation message that Role deleted.
    */
-
   async deleteRole(req, res) {
     const { id } = req.params;
     try {
-      const data = await Role.delete({ id });
-      return data;
+      const data = await Role.destroy({ where: { id } });
+      return data > 0
+        ? res.status(200).send({
+          status: res.statusCode,
+          message: 'Role deleted successfully',
+        })
+        : res.status(400).send({
+          status: res.statusCode,
+          message: 'No role found for the provided id',
+        });
     } catch (error) {
       return res.status(500).send({
         status: res.statusCode,
@@ -63,7 +72,6 @@ const roles = {
       });
     }
   },
-
 };
 
 export default roles;

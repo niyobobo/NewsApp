@@ -5,8 +5,8 @@ const route = express.Router();
 /**
  * Role routes.  CRUD operation.
  */
-route.post('/api/v1/role', roles.createRole);
-route.get('/api/v1/role', roles.viewAllRole);
-route.delete('/api/v1/role/:id', roles.deleteRole);
+route.post('/', roles.createRole);
+route.get('/', roles.viewAllRole);
+route.delete('/:id', roles.deleteRole);
 
 export default route;

@@ -1,29 +1,20 @@
 export function up(queryInterface, Sequelize) {
-  return queryInterface.createTable('Likes', {
+  return queryInterface.createTable('Roles', {
     id: {
-      allowNull: false,
-      primaryKey: true,
       type: Sequelize.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()'),
+      primaryKey: true,
+      unique: true,
     },
-    postId: {
-      type: Sequelize.UUID,
+    value: {
+      type: Sequelize.INTEGER,
       allowNull: false,
+      unique: true,
     },
-    userId: {
-      type: Sequelize.UUID,
+    name: {
+      type: Sequelize.STRING,
       allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    },
-    removed: {
-      allowNull: false,
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
+      unique: true,
     },
     createdAt: {
       allowNull: false,
@@ -38,5 +29,5 @@ export function up(queryInterface, Sequelize) {
   });
 }
 export function down(queryInterface, Sequelize) {
-  return queryInterface.dropTable('Likes');
+  return queryInterface.dropTable('Roles');
 }

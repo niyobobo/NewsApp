@@ -1,17 +1,20 @@
+import crypto from 'crypto';
+import auth from '../middleware/auth';
+
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    firstName: {
+    fullName: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        msg: 'firsName is required',
+        msg: 'fullName is required',
       },
     },
-    lastName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        msg: 'lastName is required',
+        msg: 'username is required',
       },
     },
     email: {
@@ -32,25 +35,17 @@ export default (sequelize, DataTypes) => {
     },
     phoneNumber: DataTypes.STRING,
     profileUrl: DataTypes.STRING,
-    status: DataTypes.STRING,
-    handle: DataTypes.STRING,
-    password: {
-      type: DataTypes.STRING,
-      allowNull: {
-        args: false,
-        msg: 'password is required',
-      },
-      validate: {
-        isNotShort: (value) => {
-          if (value.length < 8) {
-            throw new Error('Password should be at least 8 characters');
-          }
-        },
-      },
-    },
+    approved: DataTypes.STRING,
     salt: DataTypes.STRING,
     hash: DataTypes.STRING,
-  }, {});
+  }, {
+    hooks: {
+      beforeCreate(user) {
+        user.salt = crypto.randomBytes(16).toString('hex');
+        user.hash = auth.generateHash(user.hash, user.salt);
+      },
+    }
+  });
   User.associate = (models) => {
     User.belongsTo(models.Role, {
       foreignKey: 'role',

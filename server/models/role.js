@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
       },
       unique: {
         args: true,
-        msg: 'Role value is already registered',
+        msg: 'This role is already registered',
       },
     },
     name: {
