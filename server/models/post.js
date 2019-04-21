@@ -1,17 +1,17 @@
 export default (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
-    postHeader: {
+    title: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        msg: 'postHeader is required',
+        msg: 'title is required',
       },
     },
-    postContent: {
+    body: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        msg: 'postContent is required',
+        msg: 'body is required',
       },
     },
     media: {
@@ -23,19 +23,18 @@ export default (sequelize, DataTypes) => {
     },
     slug: DataTypes.STRING,
     author: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: {
         args: false,
         msg: 'author is required',
       },
     },
+    approved: DataTypes.BOOLEAN,
     approvedBy: DataTypes.UUID,
     edited: DataTypes.BOOLEAN,
-    deleted: DataTypes.BOOLEAN,
-    status: DataTypes.STRING,
   }, {});
   Post.associate = (models) => {
-    Post.hasMany(models.Post, {
+    Post.hasMany(models.Comment, {
       foreignKey: 'postId',
     });
     Post.hasMany(models.Like, {

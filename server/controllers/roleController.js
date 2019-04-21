@@ -4,12 +4,13 @@ const { Role } = models;
 
 const roles = {
   /**
-   * Creating a role that can be assigned to the user.
-   *
-   * @param {value, name} req request data object
-   * @param {role } res response role object
-   */
-  async createRole(req, res) {
+  *
+  * @param {*} req Request object containing name and value.
+  * @param {*} res Response object
+  * @returns {*} data (error/response).
+  *
+  */
+  createRole: async (req, res) => {
     const { value, name } = req.body;
     try {
       const roleData = await Role.create({ value, name });
@@ -30,8 +31,9 @@ const roles = {
    *
    * @param {*} req
    * @param {*} res Array response of all roles.
+   * @returns {*} return data.
    */
-  async viewAllRole(req, res) {
+  viewAllRole: async (req, res) => {
     try {
       const allRole = await Role.findAll();
       return res.status(200).send({
@@ -51,8 +53,9 @@ const roles = {
    *
    * @param { id } req  RoleId from request params of needed Role.
    * @param {*} res     Confirmation message that Role deleted.
+   * @returns {*} return data.
    */
-  async deleteRole(req, res) {
+  deleteRole: async (req, res) => {
     const { id } = req.params;
     try {
       const data = await Role.destroy({ where: { id } });

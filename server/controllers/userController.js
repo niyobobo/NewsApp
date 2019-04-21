@@ -54,7 +54,9 @@ const userController = {
           message: 'Invalid account with this email'
         });
       }
-      const { role, hash, salt } = user;
+      const {
+        id, role, hash, salt
+      } = user;
       const hashedpass = auth.generateHash(password, salt);
 
       if (hash !== hashedpass) {
@@ -64,7 +66,7 @@ const userController = {
         });
       }
 
-      const token = auth.generateToken(role, email);
+      const token = auth.generateToken(id, role);
       return res.status(200).send({
         status: res.statusCode,
         token,

@@ -6,11 +6,11 @@ export function up(queryInterface, Sequelize) {
       type: Sequelize.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()'),
     },
-    postHeader: {
+    title: {
       allowNull: false,
       type: Sequelize.STRING
     },
-    postContent: {
+    body: {
       allowNull: false,
       type: Sequelize.STRING
     },
@@ -32,24 +32,19 @@ export function up(queryInterface, Sequelize) {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
-    approvedBy: {
+    approved: {
       allowNull: false,
+      defaultValue: false,
+      type: Sequelize.BOOLEAN,
+    },
+    approvedBy: {
+      allowNull: true,
       type: Sequelize.UUID
     },
     edited: {
       allowNull: false,
       defaultValue: false,
       type: Sequelize.BOOLEAN,
-    },
-    deleted: {
-      allowNull: false,
-      defaultValue: false,
-      type: Sequelize.BOOLEAN,
-    },
-    status: {
-      allowNull: false,
-      defaultValue: 'Pending',
-      type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,
