@@ -1,0 +1,47 @@
+{
+  "name": "newsapp",
+  "version": "1.0.0",
+  "description": "Awakening application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node ./server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niyobobo/NewsApp.git"
+  },
+  "author": "Niyobobo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niyobobo/NewsApp/issues"
+  },
+  "homepage": "https://github.com/niyobobo/NewsApp#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-group-routes": "^1.1.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^5.2.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
+    "babel-eslint": "^10.0.1",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.7.1",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
+  }
+}
